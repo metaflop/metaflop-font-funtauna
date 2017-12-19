@@ -23,6 +23,6 @@ superness:=1;                  % parameter for arcs        $ 0.5 / 1
 monovalue:=0;                  % is the font monospaced?   @hidden
          
 input fontbase;                % now generate the font
-mode_setup; font_setup;        
-input glyphs; 
-bye.
+input glyphs;
+input ligkerndef;
+bye;     
