@@ -1,4 +1,3 @@
-boolean monospace;
 numeric charwidths_[];
 numeric charheights_[];
 numeric chardepths_[];
@@ -9,16 +8,11 @@ pair charanchorbots_[];
 pair charanchortoprights_[];
 pair charanchorcedillas_[];
 
-monospace:= if monovalue=0: false else true fi;
-
-ht_digits#:=ht#;          % height of 0,1,...
-
 def font_setup =
  define_pixels(
   u,
   ht,
   ht_x,
-  ht_digits,
   ht_asc,
   ht_acc,
   ht_math,
@@ -37,7 +31,7 @@ def font_setup =
 enddef;
 
 def newchar(expr code,width,height,depth,leftbearing,rightbearing)=
- if monospace:
+ if mono=1:
   if width=0:
    beginchar(code,0,height,depth);
    squeeze:=0;
@@ -98,8 +92,7 @@ enddef;
 % newchainedchar chains two chars like "f" (code b) 
 % and "l" (code c) to "fl" (code a)
 % inbetween the chars may be a gap g
-% this is considered obsolete
-% as it CANNOT work for monospaced (unfortunately)
+% this CANNOT work for monospaced (unfortunately)
 def newchainedchar(expr a,b,c,g) =
  beginchar(a,
   charwidths_[epscode(b)]
@@ -159,30 +152,6 @@ enddef;
 % i.e. a vector of the same direction but length 1
 def norm(expr dir) = 
  (dir/length(dir))
-enddef;
-
-% adjustwidth adjusts the width of the current glyph
-% leftmost = x value of the leftmost point
-% rightmost = x value of the rightmost point
-% lgap = left sidebearing relative to the global font_gap
-% rgap = right sidebearing relative to the global font_gap
-% (a solution using xoffset is unwise as mpost ignores xoffsets)
-def adjustwidth(expr leftmost,rightmost,leftgap,rigthgap)=
- currentpicture:=currentpicture shifted (leftgap-leftmost,0);
- w:=rightmost-leftmost+leftgap+rigthgap;
- charwd:=w/hppp;
- if known charanchortops_[charepscode]:
-  charanchortops_[charepscode]:=charanchortops_[charepscode] shifted (leftgap-leftmost,0);
- fi
- if known charanchorbots_[charepscode]:
-  charanchorbots_[charepscode]:=charanchorbots_[charepscode] shifted (leftgap-leftmost,0);
- fi
- if known charanchortoprights_[charepscode]:
-  charanchortoprights_[charepscode]:=charanchortoprights_[charepscode] shifted (leftgap-leftmost,0);
- fi
- if known charanchorcedillas_[charepscode]:
-  charanchorcedillas_[charepscode]:=charanchorcedillas_[charepscode] shifted (leftgap-leftmost,0);
- fi
 enddef;
 
 % widthcorr preserves correct widths even after slanting
@@ -254,38 +223,26 @@ enddef;
 % dirb is the heading direction of z$$
 vardef arc_gen.r(suffix $)(expr dira)(suffix $$)(expr dirb) = 
  begingroup
- save centerl,centerr,cornerl,cornerr,betweenl,betweenr,dirc;
- pair centerl,centerr,cornerl,cornerr,betweenl,betweenr,dirc;
- if (superness=1) or (superness=.5):
-  save startr,endr,minhalf;
-  pair startr,endr;
-  cornerr=z$r+whatever*dira=z$$r+whatever*dirb;
-  cornerl=z$l+whatever*dira=z$$l+whatever*dirb;
-  minhalf:=0.5*min(length(z$l-cornerl),length(z$$l-cornerl));
-  if superness=1:
-   startr=cornerr+minhalf/length(z$r-cornerr)*(z$r-cornerr)+z$$l-z$$r;
-   endr=cornerr+minhalf/length(z$$r-cornerr)*(z$$r-cornerr)+z$l-z$r;
-   centerr=startr+whatever*dirb=endr+whatever*dira;
-   betweenr=.75[centerr,cornerr];
-   z$r--startr{dira}...betweenr{endr-startr}...endr{dirb}--z$$r
-  else:
-   cornerr:=.6[cornerl,cornerr];
-   startr=z$r+whatever*dira=cornerr+whatever*(dira/length(dira)+dirb/length(dirb));
-   endr=z$$r+whatever*dirb=cornerr+whatever*(dira/length(dira)+dirb/length(dirb));
-   z$r--startr--endr--z$$r
-  fi
+ save centerr,cornerr,cornerl,betweenr,startr,endr,minhalf;
+ pair centerr,cornerr,cornerl,betweenr,startr,endr;
+ cornerr=z$r+whatever*dira=z$$r+whatever*dirb;
+ cornerl=z$l+whatever*dira=z$$l+whatever*dirb;
+ if superness<=0.5:
+  cornerr:=.6[cornerl,cornerr];
+  startr=z$r+whatever*dira=cornerr+whatever*(dira/length(dira)+dirb/length(dirb));
+  endr=z$$r+whatever*dirb=cornerr+whatever*(dira/length(dira)+dirb/length(dirb));
+  z$r--startr--endr--z$$r
  else:
-  centerl=z$l+whatever*dirb=z$$l+whatever*dira;
-  centerr=z$r+whatever*dirb=z$$r+whatever*dira;
-  cornerl=z$l+whatever*dira=z$$l+whatever*dirb;
-  cornerr=z$r+whatever*dira=z$$r+whatever*dirb;
-  betweenl=superness[centerl,cornerl];
+  %minhalf:=(1-straight)*min(length(z$l-cornerl),length(z$$l-cornerl));
+  %startr=cornerr+minhalf/length(z$r-cornerr)*(z$r-cornerr)+z$$l-z$$r;
+  %endr=cornerr+minhalf/length(z$$r-cornerr)*(z$$r-cornerr)+z$l-z$r;
+  startr=cornerr+1*(1-straight)*length(z$l-cornerl)/length(z$r-cornerr)*(z$r-cornerr)+z$$l-z$$r;
+  endr=cornerr+1*(1-straight)*length(z$$l-cornerl)/length(z$$r-cornerr)*(z$$r-cornerr)+z$l-z$r;
+  %startr=straight[z$r,cornerr];
+  %endr=straight[z$$r,cornerr];
+  centerr=startr+whatever*dirb=endr+whatever*dira;
   betweenr=superness[centerr,cornerr];
-  betweenr:=betweenl+
-   .5[1,widthcorr(z$$r-z$r,angle(betweenr-betweenl))]
-   *(betweenr-betweenl);
-  % this is the mid between uncorrected and corrected
-  z$r{dira}...betweenr{z$$r-z$r}...z$$r{dirb}  
+  z$r--startr{dira}...betweenr{endr-startr}...endr{dirb}--z$$r
  fi
  endgroup
 enddef;
@@ -294,27 +251,20 @@ enddef;
 % (arc_gen stands for "generalized arc of superellipse")
 vardef arc_gen.l(suffix $)(expr dira)(suffix $$)(expr dirb,a) = 
  begingroup
- save centerl,cornerl,betweenl;
- pair centerl,cornerl,betweenl;
- if (superness=1) or (superness=.5):
-  save startl,endl,minhalf;
-  pair startl,endl;
-  cornerl=z$l+whatever*dira=z$$l+whatever*dirb;
-  if superness=1:
-   minhalf:=0.5*min(length(z$l-cornerl),length(z$$l-cornerl));
-   startl=cornerl+minhalf/length(z$l-cornerl)*(z$l-cornerl);
-   endl=cornerl+minhalf/length(z$$l-cornerl)*(z$$l-cornerl);
-   centerl=startl+whatever*dirb=endl+whatever*dira;
-   betweenl=.75[centerl,cornerl];
-   z$l--startl{dira}...betweenl{endl-startl}...endl{dirb}--z$$l
-  else:
-   z$l--cornerl--z$$l
-  fi
+ save centerl,cornerl,betweenl,startl,endl,minhalf;
+ pair centerl,cornerl,betweenl,startl,endl;
+ cornerl=z$l+whatever*dira=z$$l+whatever*dirb;
+ if superness<=0.5:
+  z$l--cornerl--z$$l
  else:
-  centerl=z$l+whatever*dirb=z$$l+whatever*dira;
-  cornerl=z$l+whatever*dira=z$$l+whatever*dirb;
+  %minhalf:=(1-straight)*min(length(z$l-cornerl),length(z$$l-cornerl));
+  %startl=cornerl+minhalf/length(z$l-cornerl)*(z$l-cornerl);
+  startl=straight[z$l,cornerl];
+  endl=straight[z$$l,cornerl];
+  %endl=cornerl+minhalf/length(z$$l-cornerl)*(z$$l-cornerl);
+  centerl=startl+whatever*dirb=endl+whatever*dira;
   betweenl=superness[centerl,cornerl];
-  z$l{dira}...betweenl{z$$l-z$l}...z$$l{dirb} 
+  z$l--startl{dira}...betweenl{endl-startl}...endl{dirb}--z$$l
  fi
  endgroup
 enddef;
@@ -365,7 +315,7 @@ vardef serifpoints(suffix $,$$,@)(expr jt,slb) =
   z@0=z$r;
   z@1=z$$r;
  fi
- if monospace and (y@1=y$$):
+ if (mono=1) and (y@1=y$$):
   jts:=jt*squeeze;
  else:
   jts:=jt;
@@ -440,4 +390,5 @@ vardef serifsarms(suffix $,$$,@,@@,@@@,@@@@)(expr jtl,jtr,slb) =
  fi
 enddef;
 
-
+mode_setup; 
+font_setup;

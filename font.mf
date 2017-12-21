@@ -7,6 +7,7 @@ u#:=designsize/1000;           % horizontal unit           @hidden
 ht#:=0.7designsize;            % height of H,I,...         $ 0.5 / 0.9
 ht_x#:=0.45designsize;         % height of x,v,w,...       $ 0.3 / 0.6
 ht_asc#:=0.7designsize;        % height of h,l,...         $ 0.6 / 0.9
+ht_digits#:=.95ht#;            % height of 0,1,...         @ hidden
 ht_acc#:=0.21designsize;       % accent height above       @ hidden
 ht_math#:=.25designsize;       % height of minus           @ hidden
 depth_desc#:=0.2designsize;    % depth of descenders       $ 0.1 / 0.4
@@ -19,8 +20,9 @@ gap_cap#:=0.9gap#;             % side bearing of I,H,L,... @hidden
 stem_cap#:=1.1stem#;           % stem width of H,I,...     @hidden
 band_cap#:=band#;              % horizontal band width     @hidden
 jut_cap#:=1.1jut#;             % protrusion of serifs      @hidden
-superness:=1;                  % parameter for arcs        $ 0.5 / 1
-monovalue:=0;                  % is the font monospaced?   @hidden
+superness:=.8;                  % parameter for arcs        $ 0.5 / 1
+straight:=.4;                  % straight amount for arcs  $ 0 / 1
+mono:=0;                       % 0=monospaced / 1=proportional
          
 input fontbase;                % now generate the font
 input glyphs;
