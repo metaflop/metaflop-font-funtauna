@@ -308,35 +308,6 @@ charanchorcedillas_[charepscode]=(.8[x1,x4],0);
 penlabels(range 1 thru 4); 
 endchar;
 
-% Lslash
-newchar("0141",400u#+.5stem_cap#,ht#,0,
- gap_cap#+jut_cap#,.4gap_cap#+.25jut_cap#);
-x1l=x2l=l;
-x4=r;
-y1=y4r=0;
-y2=h;
-z3r=z1;
-z5=(x1l-jut_cap,.45h);
-z6=(x1r+jut_cap,.65h);
-pos1(stem_cap,up,0);
-pos2(stem_cap,up,0);
-pos3(band_cap,right,-90);
-pos4(band_cap,right,-90);
-pos5(.8stem_cap,z4-z3,-90);
-pos6(.8stem_cap,z4-z3,-90);
-penstroke z1e--z2e;
-penstroke z3e--z4e;
-penstroke z5e--z6e;
-serif(2,1,a,jut_cap,band_cap);
-serifs(1,2,b,c,jut_cap,jut_cap,band_cap);
-serif(3,4,d,-jut_cap,stem_cap);
-charanchortops_[charepscode]=(x1,h);
-charanchortoprights_[charepscode]=(x1r+40u+jut_cap,ht_x);
-charanchorbots_[charepscode]=(.4[x1,x4],0);
-charanchorcedillas_[charepscode]=(.8[x1,x4],0);
-penlabels(range 1 thru 6); 
-endchar;
-
 % M
 newchar("004D",620u#+stem_cap#,ht#,0,
  gap_cap#+jut_cap#,gap_cap#+jut_cap#);
@@ -404,36 +375,6 @@ serifs(3,4,d,e,jut_cap,jut_cap,band_cap);
 charanchortops_[charepscode]=(.5[l,r],h);
 charanchorbots_[charepscode]=(.5[l,r],0);
 penlabels(range 1 thru 8); 
-endchar;
-
-% Eng
-newchar("014A",440u#+stem_cap#,ht#,depth_desc#,
- gap_cap#+jut_cap#,.75gap_cap#+.375jut_cap#);
-x1l=x2l=l;
-x5r=x6r=r;
-x4=.5[x1,x6];
-x7=.7[x1,x5];
-x8=.4[x1,x5];
-y1l=y6r=0;
-y2l=y4r=h;
-y5r=.5h;
-y7r=y8r=-d;
-z3r=z2;
-pos1(stem_cap,up,0);
-pos2(stem_cap,up,0);
-pos3(band_cap,left,90);
-pos4(band_cap,left,90);
-pos5(stem_cap,up,0);
-pos6(stem_cap,up,0);
-pos7(band_cap,right,-90);
-pos8(band_cap,right,-90);
-penstroke z1e--z2e;
-penstroke z8e--z7e & arc.e(7,6) & z6e--z5e & arc.e(5,4) & z4e--z3e;
-serif(1,2,a,-jut_cap,band_cap);
-serifs(2,1,b,c,jut_cap,1.1jut_cap,band_cap);
-charanchortops_[charepscode]=(x4,h);
-charanchorbots_[charepscode]=(x4,0);
-penlabels(range 1 thru 6);
 endchar;
 
 % O
