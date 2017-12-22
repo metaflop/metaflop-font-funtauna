@@ -895,40 +895,48 @@ charanchortops_[charepscode]=(.6[x1,x6],ht_x);
 penlabels(range 1 thru 6);
 endchar;
 
-% dotlessi
-newchar("0131",stem#,ht_x#,0,
+% i
+newchar("0069",stem#,ht_x#+ht_acc#,0,
  gap#+if (mono=1): 1.15 fi jut#,
  if (mono=1): .5 fi gap#+if (mono=1): .85 fi jut#);
 z1l=(l,0);
 z2l=(l,h);
+x3l=x4l=l;
+y3r=y4r-dotsize=.5[ht_x,h];
 pos1(stem,up,0);
 pos2(stem,up,0);
+pos3(dotsize,up,0);
+pos4(dotsize,up,0);
 penstroke z1e--z2e;
+penstroke z3e--z4e;
 serifs(2,1,a,b,jut,jut,band);
 serif(1,2,c,-jut,band);
-charanchortops_[charepscode]=z2;
 charanchorbots_[charepscode]=z1;
 charanchorcedillas_[charepscode]=z1;
-penlabels(range 1 thru 2);
+penlabels(range 1 thru 4);
 endchar;
  
-% dotlessj
-newchar("0237",stem#,ht_x#,depth_desc#,
+% j
+newchar("006A",stem#,ht_x#+ht_acc#,depth_desc#,
  gap#+jut#,if (mono=1): .5 fi gap# if (mono=0): +jut# fi);
 x1l=x2l=l;
 x4=x1l-if mono=0: 120u else: 240u fi;
 x3=.5[x4,x1l];
+x5l=x6l=l;
 y1l=-.4d;
 y2l=h;
 y3r=y4r=-d;
+y5r=y6r-dotsize=.5[ht_x,h];
 pos1(stem,up,0);
 pos2(stem,up,0);
 pos3(band,right,-90);
 pos4(band,right,-90);
+pos5(dotsize,up,0);
+pos6(dotsize,up,0);
 penstroke z4e--z3e & arc.e(3,1) & z1e--z2e;
+penstroke z5e--z6e;
 serif(1,2,a,-jut,band);
-charanchortops_[charepscode]=z2;
-penlabels(range 1 thru 4);
+penlabels(range 1 thru 6);
 endchar;
 
 % k
@@ -1690,21 +1698,3 @@ pos2(band,right,-90);
 penstroke z1e--z2e;
 penlabels(range 1 thru 2);
 endchar;
-
-% dotaccent
-newchar("02D9",dotsize#,ht_x#+ht_acc#,0,
- .5gap#,.5gap#);
-x1l=x2l=l;
-y1r=y2r-dotsize=.5[ht_x,h];
-pos1(dotsize,up,0);
-pos2(dotsize,up,0);
-penstroke z1e--z2e;
-charanchortops_[charepscode]=(x1,ht_x);
-penlabels(range 1 thru 2);
-endchar;
-
-% i 
-newcombinedchar("i","0131","02D9","top",ht_x#+ht_acc#,0);
-
-% j
-newcombinedchar("j","0237","02D9","top",ht_x#+ht_acc#,depth_desc#);
