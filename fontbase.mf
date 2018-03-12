@@ -8,6 +8,15 @@ pair charanchorbots_[];
 pair charanchortoprights_[];
 pair charanchorcedillas_[];
 
+% remap the metaflopt names to the original names:
+font_slant_:=slant;
+ht_x#:=x_ht#;
+ht_asc#:=asc#;
+depth_desc#:=des#;
+stem#:=px#;
+band#:=py#;
+straight:=incx;
+
 def font_setup =
  define_pixels(
   u,
