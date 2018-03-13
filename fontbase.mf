@@ -16,6 +16,7 @@ depth_desc#:=des#;
 stem#:=px#;
 band#:=py#;
 straight:=incx;
+jut#:=serifs#;
 
 def font_setup =
  define_pixels(
