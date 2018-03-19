@@ -900,9 +900,9 @@ newchar("0069",stem#,ht_x#+ht_acc#,0,
  gap#+if (mono=1): 1.15 fi jut#,
  if (mono=1): .5 fi gap#+if (mono=1): .85 fi jut#);
 z1l=(l,0);
-z2l=(l,h);
-x3l=x4l=l;
-y3r=y4r-dotsize=.5[ht_x,h];
+z2l=(l,ht_x);
+x3=x4=x1;
+y3=y4-dotsize=.5[ht_x,h];
 pos1(stem,up,0);
 pos2(stem,up,0);
 pos3(dotsize,up,0);
@@ -922,11 +922,11 @@ newchar("006A",stem#,ht_x#+ht_acc#,depth_desc#,
 x1l=x2l=l;
 x4=x1l-if mono=0: 120u else: 240u fi;
 x3=.5[x4,x1l];
-x5l=x6l=l;
+x5=x6=x1;
 y1l=-.4d;
-y2l=h;
+y2l=ht_x;
 y3r=y4r=-d;
-y5r=y6r-dotsize=.5[ht_x,h];
+y5=y6-dotsize=.5[ht_x,h];
 pos1(stem,up,0);
 pos2(stem,up,0);
 pos3(band,right,-90);
