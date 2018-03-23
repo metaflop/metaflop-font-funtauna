@@ -3,7 +3,7 @@ font_coding_scheme "Unicode";  % the font encoding         @hidden
 font_size 10pt#;               % the "design size"         @hidden
 font_normal_space .36designsize; % space width             @hidden
 slant:=0;                      % general slanting          $ -0.3 / 0.3
-u#:=1designsize/1000;           % horizontal unit           $ 0.8 / 1.2
+u#:=1designsize/1000;          % horizontal unit           $ 0.8 / 1.2
 ht#:=0.68designsize;           % height of H,I,...         $ 0.5 / 0.9
 x_ht#:=0.46designsize;         % height of x,v,w,...       $ 0.3 / 0.6
 asc#:=0.73designsize;          % height of h,l,...         $ 0.6 / 0.9

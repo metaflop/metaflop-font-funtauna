@@ -3,7 +3,7 @@ newchar("0041",560u#+stem_cap#,ht#,0,
  .1gap_cap#+.7jut_cap#,.1gap_cap#+.7jut_cap#);
 z1l=(l,0); 
 z4r=(r,0); 
-z5=(.5[x1l,x4r],h-band_cap);
+z5=(.5[x1l,x4r],h-min(band_cap,.9stem_cap));
 y2r=y3l=h; 
 posin1(1,.9stem_cap,1,x5-x1l,y5-y1l);
 posin4(1,.9stem_cap,1,x5-x4r,y5-y4r);
@@ -320,7 +320,7 @@ x9r=x4l;
 y1l=y3r=0;
 y8=y10=.4h*mono;
 y2l=y4r=y7=y11=h;
-y2l-y5l=y4r-y9r=y6r-y10=band_cap;
+y2l-y5l=y4r-y9r=y6r-y10=min(band_cap,.9stem_cap);
 pos1(stem_cap,up,0);
 pos2(stem_cap,up,0);
 pos3(stem_cap,up,0);
@@ -355,7 +355,7 @@ x5l=x1r;
 x6r=x3l;
 y1l=y3r=y8=0;
 y2l=y4r=y7=h;
-y2l-y5l=y6r=band_cap;
+y2l-y5l=y6r=min(band_cap,.9stem_cap);
 pos1(stem_cap,up,0);
 pos2(stem_cap,up,0);
 pos3(stem_cap,up,0);
@@ -375,6 +375,36 @@ serifs(3,4,d,e,jut_cap,jut_cap,band_cap);
 charanchortops_[charepscode]=(.5[l,r],h);
 charanchorbots_[charepscode]=(.5[l,r],0);
 penlabels(range 1 thru 8); 
+endchar;
+
+% Eng
+newchar("014A",440u#+stem_cap#,ht#,depth_desc#,
+ gap_cap#+jut_cap#,.75gap_cap#+.375jut_cap#);
+x1l=x2l=l;
+x5r=x6r=r;
+x4=.5[x1,x6];
+x7=.7[x1,x5];
+x8=.4[x1,x5];
+y1l=y6r=0;
+y2l=y4r=h;
+y5r=.5h;
+y7r=y8r=-d;
+z3r=z2;
+pos1(stem_cap,up,0);
+pos2(stem_cap,up,0);
+pos3(band_cap,left,90);
+pos4(band_cap,left,90);
+pos5(stem_cap,up,0);
+pos6(stem_cap,up,0);
+pos7(band_cap,right,-90);
+pos8(band_cap,right,-90);
+penstroke z1e--z2e;
+penstroke z8e--z7e & arc.e(7,6) & z6e--z5e & arc.e(5,4) & z4e--z3e;
+serif(1,2,a,-jut_cap,band_cap);
+serifs(2,1,b,c,jut_cap,1.1jut_cap,band_cap);
+charanchortops_[charepscode]=(x4,h);
+charanchorbots_[charepscode]=(x4,0);
+penlabels(range 1 thru 6);
 endchar;
 
 % O
@@ -556,7 +586,7 @@ newchar("0056",520u#+stem_cap#,ht#,0,
  .1gap_cap#+.7jut_cap#,.1gap_cap#+.7jut_cap#);
 z1l=(l,h); 
 z4r=(r,h); 
-z5=(.5[x1l,x4r],band_cap);
+z5=(.5[x1l,x4r],min(band_cap,.9stem_cap));
 y2r=y3l=0; 
 posin1(1,.9stem_cap,1,x5-x1l,y5-y1l);
 posin4(1,.9stem_cap,1,x5-x4r,y5-y4r);
@@ -575,7 +605,7 @@ newchar("0057",780u#+1.2stem_cap#,ht#,0,
 if mono=1: stem_cap:=.9stem_cap; fi
 z1l=(l,h); 
 z4r=(.5[l,r]+.2stem_cap,if mono=1: .6h else: h fi); 
-z5=(.5[x1l,x4r],band_cap);
+z5=(.5[x1l,x4r],min(band_cap,.9stem_cap));
 y2r=y3l=0; 
 posin1(1,.9stem_cap,1,x5-x1l,y5-y1l);
 posin4(1,.9stem_cap,1,x5-x4r,y5-y4r);
@@ -627,7 +657,7 @@ newchar("0059",520u#+stem_cap#,ht#,0,
 % like V
 z1l=(l,h); 
 z4r=(r,h); 
-z5=(.5[x1l,x4r],.45h+band_cap);
+z5=(.5[x1l,x4r],.45h+min(band_cap,.9stem_cap));
 y2r=y3l=.45h; 
 posin1(1,.9stem_cap,1,x5-x1l,y5-y1l);
 posin4(1,.9stem_cap,1,x5-x4r,y5-y4r);
@@ -641,13 +671,16 @@ pos7(stem_cap,up,0);
 z6l=whatever[z1l,z2l]=z7l+whatever*up;
 z6r=whatever[z3r,z4r]=z7r+whatever*up;
 z6=.5[z6l,z6r];
-fill z6r--z3r--z2l--z6l--cycle;
-serifsarm(2,1,a,b,.7jut_cap,.7jut_cap,band);
-serifsarm(3,4,c,d,.7jut_cap,.7jut_cap,band);
+z8r=z9l=z5;
+z8r-z8l=2*(z8r-z8)=z1r-z1l;
+z9r-z9l=2*(z9r-z9)=z4r-z4l;
+fill z6r--z9r--z8l--z6l--cycle;
+serifsarm(8,1,a,b,.7jut_cap,.7jut_cap,band);
+serifsarm(9,4,c,d,.7jut_cap,.7jut_cap,band);
 serifsarm(6,7,e,f,jut_cap,jut_cap,band);
 charanchortops_[charepscode]=(.5w,h);
 charanchorbots_[charepscode]=(.5w,0);
-penlabels(range 1 thru 7); 
+penlabels(range 1 thru 9); 
 endchar;
 
 % Z
@@ -1220,7 +1253,7 @@ newchar("0076",380u#+stem#,ht_x#,0,
  .1gap#+.7jut#,.1gap#+.7jut#);
 z1l=(l,h); 
 z4r=(r,h); 
-z5=(.5[x1l,x4r],band);
+z5=(.5[x1l,x4r],min(band,.9stem));
 y2r=y3l=0; 
 posin1(1,.9stem,1,x5-x1l,y5-y1l);
 posin4(1,.9stem,1,x5-x4r,y5-y4r);
@@ -1238,7 +1271,7 @@ newchar("0077",570u#+1.2stem#,ht_x#,0,
  .1gap#+.8jut#,.1gap#+.8jut#);
 z1l=(l,h); 
 z4r=(.5[l,r]+.2stem,if mono=1: .6h else: h fi); 
-z5=(.5[x1l,x4r],band);
+z5=(.5[x1l,x4r],min(band,.9stem));
 y2r=y3l=0; 
 posin1(1,.9stem,1,x5-x1l,y5-y1l);
 posin4(1,.9stem,1,x5-x4r,y5-y4r);
