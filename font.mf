@@ -25,5 +25,5 @@ incx:=.4;                      % straight amount for arcs  $ 0 / 1
 mono:=0;                       % is the font monospaced ?  @hidden
          
 input fontbase;                % now generate the font
-input glyphs;
+input glyphs_preview;
 bye;     

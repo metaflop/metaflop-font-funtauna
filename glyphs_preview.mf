@@ -377,36 +377,6 @@ charanchorbots_[charepscode]=(.5[l,r],0);
 penlabels(range 1 thru 8); 
 endchar;
 
-% Eng
-newchar("014A",440u#+stem_cap#,ht#,depth_desc#,
- gap_cap#+jut_cap#,.75gap_cap#+.375jut_cap#);
-x1l=x2l=l;
-x5r=x6r=r;
-x4=.5[x1,x6];
-x7=.7[x1,x5];
-x8=.4[x1,x5];
-y1l=y6r=0;
-y2l=y4r=h;
-y5r=.5h;
-y7r=y8r=-d;
-z3r=z2;
-pos1(stem_cap,up,0);
-pos2(stem_cap,up,0);
-pos3(band_cap,left,90);
-pos4(band_cap,left,90);
-pos5(stem_cap,up,0);
-pos6(stem_cap,up,0);
-pos7(band_cap,right,-90);
-pos8(band_cap,right,-90);
-penstroke z1e--z2e;
-penstroke z8e--z7e & arc.e(7,6) & z6e--z5e & arc.e(5,4) & z4e--z3e;
-serif(1,2,a,-jut_cap,band_cap);
-serifs(2,1,b,c,jut_cap,1.1jut_cap,band_cap);
-charanchortops_[charepscode]=(x4,h);
-charanchorbots_[charepscode]=(x4,0);
-penlabels(range 1 thru 6);
-endchar;
-
 % O
 newchar("004F",500u#+stem_cap#,ht#,0,
  .75gap_cap#+.375jut_cap#,.75gap_cap#+.375jut_cap#);
