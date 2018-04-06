@@ -208,6 +208,23 @@ vardef poswidthhalf(expr e,b,d,c,y) =
   fi:=t; 
  endfor
  (b*(1++t),d*(1++(t-2*e*s))) enddef;
+ 
+% this is a variation of the above definition
+% which is not described in the TUGboat article
+% due to the fact, that diagonals for Funtauna
+% join differently than described in the article.
+% The only change is c=p+2q+r instead of
+% c=.5p+2q−.5r before.
+vardef penwidthbridge(expr e,b,d,c,y) =
+ numeric bb,cc,dd,ta,tb,t,s; 
+ bb=b/y; dd=d/y; cc=c/y; s=font_slant_;
+ ta=-100; tb=100; % boundaries
+ forever:
+  exitif abs(ta-tb)<=eps;
+  t:=.5[ta,tb];
+  if bb*(1++t)+2*(t-e*s)+dd*(1++(t-e*2*s))-cc>0: tb else: ta fi:=t; 
+ endfor
+ (b*(1++t),d*(1++(t-2*e*s))) enddef;
 
 % posin is a penpos for horizontal pens of diagonal inscribing stems
 % (single diagonal constellations like sometimes used in "A" or "K")
